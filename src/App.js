@@ -15,7 +15,7 @@ const initialstate = {
   matrice: [["", "", ""], ["", "", ""], ["", "", ""]],
   get_value: ["", "X", "O"],
   player: grp(),
-  a: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+  a: [[0, 0, 0, 0, 3], [0, 0, 0, 0, 3], [0, 0, 0, 0, 3], [3, 3, 3, 3, 3]],
   s: " ",
   k: 0
 
@@ -40,7 +40,41 @@ class App extends Component{
       let temp = this.state.matrice;
       let temp2 = this.state.a;
       temp[c - 1][l - 1] = this.state.get_value[this.state.player];
-      temp2[c - 1][l - 1] = this.state.player;
+    
+
+      if(this.state.player == 1){
+
+        // X
+        temp2[l - 1][4]++;
+        temp2[3][c]++;
+
+          if(l == c){ // diagonala principala
+
+            temp2[3][4]++;
+
+            if(l == 2 && c == 2)
+              temp2[3][0]++;
+            
+          }else if(l == 4 - c) // diagoanal secundara
+            temp2[3][0]++;
+
+      }else{
+
+        // O
+        temp2[l - 1][4]--;
+        temp2[3][c]--;
+
+        if(l == c){ // diagonala principala
+
+            temp2[3][4]--;
+            
+            if(l == 2 && c == 2)
+              temp2[3][0]--;
+            
+        }else if(l == 4 - c) // diagonala secundara
+          temp2[3][0]--;
+
+      }
 
       this.setState({matrice: temp});
       this.setState({a: temp2});
@@ -59,37 +93,27 @@ class App extends Component{
 
     let v = this.state.a;
 
-    if(v[0][0] != 0 && v[0][0] == v[0][1] && v[0][2] == v[0][1]){
+    for(let i = 0; i < 5; i++){
 
-      this.setState({s: this.state.get_value[v[0][0]]});
+      if(v[3][i] == 6 || v[3][i] == 0){
 
-    }else if(v[0][0] != 0 && v[0][0] == v[1][0] && v[2][0] == v[1][0]){
+        if(v[3][i] == 6)
+          this.setState({s: "X"});
+        else this.setState({s: "O"});
 
-      this.setState({s: this.state.get_value[v[0][0]]});
+      }
 
-    }else if(v[2][2] != 0 && v[2][2] == v[1][2] && v[0][2] == v[1][2]){
+    }
 
-      this.setState({s: this.state.get_value[v[2][2]]});
+    for(let i = 0; i < 4; i++){
 
-    }else if(v[2][2] != 0 && v[2][2] == v[2][1] && v[2][0] == v[2][1]){
+      if(v[i][4] == 6 || v[i][4] == 0){
 
-      this.setState({s: this.state.get_value[v[2][2]]});
+        if(v[i][4] == 6)
+          this.setState({s: "X"});
+        else this.setState({s: "O"});
 
-    }else if(v[1][0] != 0 && v[1][0] == v[1][2] && v[1][1] == v[1][2]){
-
-      this.setState({s: this.state.get_value[v[1][0]]});
-
-    }else if(v[0][1] != 0 && v[0][1] == v[1][1] && v[2][1] == v[1][1]){
-
-      this.setState({s: this.state.get_value[v[0][1]]});
-
-    }else if(v[0][0] != 0 && v[0][0] == v[1][1] && v[2][2] == v[1][1]){
-
-      this.setState({s: this.state.get_value[v[0][0]]});
-
-    }else if(v[0][2] != 0 && v[0][2] == v[1][1] && v[2][0] == v[1][1]){
-
-      this.setState({s: this.state.get_value[v[0][2]]});
+      }
 
     }
 
@@ -99,7 +123,7 @@ class App extends Component{
 
     let m = [["", "", ""], ["", "", ""], ["", "", ""]];
     let gv = ["", "X", "O"];
-    let a2 = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    let a2 = [[0, 0, 0, 0, 3], [0, 0, 0, 0, 3], [0, 0, 0, 0, 3], [3, 3, 3, 3, 3]];
 
     this.setState({matrice: m});
     this.setState({get_value : gv});

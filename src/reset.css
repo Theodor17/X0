@@ -1,0 +1,17 @@
+.Reset{
+
+    width: 70px;
+    height: 50px;
+    color:white;
+    background-color: black;
+    border-radius: 50px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    position: abolute;
+    left: 20%;
+    cursor: pointer;
+
+}
